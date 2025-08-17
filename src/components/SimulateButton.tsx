@@ -30,16 +30,14 @@ const SimulateButton: React.FC<SimulateButtonProps> = ({ products, onTransaction
       );
 
       const data = await response.json();
-      onTransactionUpdate(data.transactions, products); // backend doesn’t send updatedProducts yet
+      onTransactionUpdate(data.transactions, products); 
     } catch (error) {
       console.error('Failed to simulate transactions:', error);
     }
     setIsSimulating(false);
   };
 
-  /**
-   * Option C: Individual Transactions
-   */
+  
   const processPurchase = async (productId: string, quantity: number, unitPrice: number) => {
     const token = localStorage.getItem('authToken');
     const response = await fetch(

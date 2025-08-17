@@ -30,8 +30,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       const data = contentType?.includes("application/json")
         ? await response.json()
         : { token: await response.text() };
-      localStorage.setItem("authToken", data.token); // ✅ Save JWT only
-      onLogin(data.username); // if your backend returns user info
+      localStorage.setItem("authToken", data.token); 
+      onLogin(data.username); 
     } else {
       const errorData = contentType?.includes("application/json")
         ? await response.json()

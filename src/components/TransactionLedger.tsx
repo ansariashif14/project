@@ -15,8 +15,18 @@ const TransactionLedger: React.FC<TransactionLedgerProps> = ({ transactions }) =
   };
 
   const formatDateTime = (date: string | Date) => {
-  const d = new Date(date);
+  let d: Date;
+
+  if (typeof date === "string") {
+    // Trim nanoseconds (keep 3 digits max for JS Date)
+    const normalized = date.replace(/(\.\d{3})\d+Z$/, "$1Z");
+    d = new Date(normalized);
+  } else {
+    d = new Date(date);
+  }
+
   if (isNaN(d.getTime())) return "Invalid Date";
+
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
@@ -27,7 +37,6 @@ const TransactionLedger: React.FC<TransactionLedgerProps> = ({ transactions }) =
   }).format(d);
 };
 
-  // Ensure sorting works if date is string
   const sortedTransactions = [...transactions].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );
