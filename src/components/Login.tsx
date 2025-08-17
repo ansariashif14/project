@@ -21,6 +21,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: userId, password }),
+      credentials: 'include'
     });
 
     const contentType = response.headers.get("content-type");
