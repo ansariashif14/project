@@ -18,7 +18,6 @@ const TransactionLedger: React.FC<TransactionLedgerProps> = ({ transactions }) =
   let d: Date;
 
   if (typeof date === "string") {
-    // Trim nanoseconds (keep 3 digits max for JS Date)
     const normalized = date.replace(/(\.\d{3})\d+Z$/, "$1Z");
     d = new Date(normalized);
   } else {
@@ -38,7 +37,7 @@ const TransactionLedger: React.FC<TransactionLedgerProps> = ({ transactions }) =
 };
 
   const sortedTransactions = [...transactions].sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  (a, b) => normalizeDate(b.date).getTime() - normalizeDate(a.date).getTime()
 );
 
 
